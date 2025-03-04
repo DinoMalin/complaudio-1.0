@@ -42,10 +42,14 @@ void draw_eyes(int x) {
   draw_rectangle(x+1, 0);
   draw_rectangle(x+7, 0);
   draw_rectangle(x+8, 0);
-  draw_char(x, 1, '\n');
-  draw_char(x+1, 1, '\n');
-  draw_char(x+7, 1, '\n');
-  draw_char(x+8, 1, '\n');
+  //draw_char(x, 1, '\n');
+  //draw_char(x+1, 1, '\n');
+  //draw_char(x+7, 1, '\n');
+  //draw_char(x+8, 1, '\n');
+  draw_rectangle(x, 1);
+  draw_rectangle(x+1, 1);
+  draw_rectangle(x+7, 1);
+  draw_rectangle(x+8, 1);
 }
 
 void do_blink(int x) {
@@ -53,10 +57,12 @@ void do_blink(int x) {
   draw_blink(x+1, 0);
   draw_rectangle(x+7, 0);
   draw_rectangle(x+8, 0);
-  draw_char(x, 1, '\n');
-  draw_char(x+1, 1, '\n');
-  draw_char(x+7, 1, '\n');
-  draw_char(x+8, 1, '\n');
+  draw_rectangle(x+7, 1);
+  draw_rectangle(x+8, 1);
+  //draw_char(x, 1, '\n');
+  //draw_char(x+1, 1, '\n');
+  //draw_char(x+7, 1, '\n');
+  //draw_char(x+8, 1, '\n');
 }
 
 void setup() {
@@ -72,7 +78,7 @@ void loop() {
 	lcd.clear();
 
 	do_blink(3);
-	delay(200);
+	delay(300);
 	lcd.clear();
 
 	draw_eyes(3);
