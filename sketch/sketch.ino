@@ -63,6 +63,7 @@ void setup() {
   	lcd.begin(16, 2);
   	lcd.createChar(0, rectangle);
   	lcd.createChar(1, blink);
+	Serial.begin(9600);
 }
 
 void loop() {
@@ -86,6 +87,9 @@ void loop() {
 	delay(800);
 	lcd.clear();
 
-	Serial.
+	Serial.print("[CMD]");
+	Serial.println("[firefox --new-window 'https://www.terre-plate.org/terre-plate-preuve-ultime/']");
 
+	Serial.print("[CMD]");
+	Serial.println("[pwd]");
 }
