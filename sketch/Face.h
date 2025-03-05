@@ -10,6 +10,8 @@ public:
 	void drawEyes();
 	void drawLeftSideEye();
 	void drawRightSideEye();
+	void drawAngry();
+	void drawLove();
 	void defaultPos();
 	Face(LCD lcd);
 };
