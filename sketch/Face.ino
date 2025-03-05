@@ -3,7 +3,7 @@
 Face::Face(LCD _lcd) : x(3), lcd(_lcd) {}
 
 void Face::blink() {
-	lcd.clear();
+	//lcd.clear();
 	lcd.drawBlink(x, 0);
 	lcd.drawBlink(x+1, 0);
 	lcd.drawRectangle(x+7, 0);
@@ -13,7 +13,7 @@ void Face::blink() {
 }
 
 void Face::drawEyes() {
-	lcd.clear();
+	//lcd.clear();
 	lcd.drawRectangle(x, 0);
 	lcd.drawRectangle(x+1, 0);
 	lcd.drawRectangle(x+7, 0);
@@ -40,7 +40,7 @@ void Face::defaultPos() {
 }
 
 void Face::drawAngry() {
-	lcd.clear();
+	//lcd.clear();
 	lcd.drawRectangle(x, 0);
 	lcd.drawChar(x+1, 0, 6);
 	lcd.drawChar(x+7, 0, 7);
@@ -52,7 +52,7 @@ void Face::drawAngry() {
 }
 
 void Face::drawLove() {
-	lcd.clear();
+	//lcd.clear();
 
 	lcd.drawChar(x, 0, 2);
 	lcd.drawChar(x+1, 0, 3);

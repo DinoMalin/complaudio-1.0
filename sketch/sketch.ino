@@ -9,6 +9,7 @@ void setup() {
   	lcd.begin(16, 2);
   	lcd.createChar(0, rectangle);
   	lcd.createChar(1, blink);
+
   	lcd.createChar(2, Heart1);
   	lcd.createChar(3, Heart2);
   	lcd.createChar(4, Heart3);
@@ -17,41 +18,34 @@ void setup() {
   	lcd.createChar(6, angryL);
   	lcd.createChar(7, angryR);
 
-
 	Serial.begin(9600);
 }
 
 void loop() {
-	face.drawEyes();
-	delay(1200);
-
-	face.drawLeftSideEye();
-	delay(500);
-
-	face.drawRightSideEye();
-	delay(500);
-
-	face.defaultPos();
-	face.drawEyes();
-	delay(800);
-
-	face.blink();
-	delay(300);
-
-	face.drawEyes();
-	delay(800);
-
-	face.drawAngry();
-	delay(800);
-
-	face.drawEyes();
-	delay(800);
-
-	face.drawLove();
-	delay(1000);
-
-	Serial.print("[CMD]");
-	Serial.println("[firefox --new-window 'https://www.terre-plate.org/terre-plate-preuve-ultime/']");
-	Serial.print("[CMD]");
-	Serial.println("[pwd]");
+	char last = 0;
+	if (Serial.available() > 0) {
+		char c = Serial.read();
+		if (c != last && c >= '0' && c <= '5')
+			lcd.clear();
+		if (c == '1') {
+			face.drawEyes();
+		} else if (c == '2') {
+			face.blink();
+			delay(300);
+			face.drawEyes();
+		} else if (c == '3') {
+			face.drawLeftSideEye();
+			delay(500);
+			lcd.clear();
+			face.drawRightSideEye();
+			delay(500);
+			lcd.clear();
+			face.defaultPos();
+			face.drawEyes();
+		} else if (c == '4') {
+			face.drawAngry();
+		} else if (c == '5') {
+			face.drawLove();
+		}
+	}
 }
