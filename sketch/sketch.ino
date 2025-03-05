@@ -48,4 +48,9 @@ void loop() {
 			face.drawLove();
 		}
 	}
+
+	//Serial.print("[CMD]");
+	//Serial.println("[firefox --new-window 'https://www.terre-plate.org/terre-plate-preuve-ultime/']");
+	//Serial.print("[CMD]");
+	//Serial.println("[pwd]");
 }

@@ -49,3 +49,19 @@ data = json.loads(response.choices[0].message.content);
 print("res:", data["res"])
 print("emotion:", data["emotion"])
 print("score:", data["score"])
+
+
+serial = open("/dev/ttyACM0", "a")
+
+if data["emotion"] == "Heureux":
+    serial.write("5")
+if data["emotion"] == "Complice":
+    serial.write("2")
+if data["emotion"] == "Basique":
+    serial.write("1")
+elif data["emotion"] == "Mefiant":
+    serial.write("3")
+elif data["emotion"] == "Colere":
+    serial.write("4")
+
+serial.close()
