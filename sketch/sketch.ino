@@ -36,11 +36,18 @@ void loop() {
 	face.drawEyes();
 	delay(1200);
 
+	face.drawLeftSideEye();
+	delay(500);
+
+	face.drawRightSideEye();
+	delay(500);
+
+	face.defaultPos();
+	face.drawEyes();
+	delay(800);
+
 	face.blink();
 	delay(300);
-
-	face.drawEyes();
-	delay(1200);
 
 	Serial.print("[CMD]");
 	Serial.println("[firefox --new-window 'https://www.terre-plate.org/terre-plate-preuve-ultime/']");

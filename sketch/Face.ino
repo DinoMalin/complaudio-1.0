@@ -23,3 +23,18 @@ void Face::drawEyes() {
 	lcd.drawRectangle(x+7, 1);
 	lcd.drawRectangle(x+8, 1);
 }
+
+void Face::drawLeftSideEye() {
+	this->x = 1;
+	drawEyes();
+}
+
+void Face::drawRightSideEye() {
+	this->x = 6;
+	drawEyes();
+}
+
+void Face::defaultPos() {
+	this->x = 3;
+	drawEyes();
+}

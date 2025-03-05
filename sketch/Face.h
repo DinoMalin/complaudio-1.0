@@ -8,5 +8,8 @@ private:
 public:
 	void blink();
 	void drawEyes();
+	void drawLeftSideEye();
+	void drawRightSideEye();
+	void defaultPos();
 	Face(LCD lcd);
 };
