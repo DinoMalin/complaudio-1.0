@@ -8,3 +8,7 @@ upload:
 
 listen:
 	bash listen.sh
+
+env:
+	bash --rcfile env.sh
+
