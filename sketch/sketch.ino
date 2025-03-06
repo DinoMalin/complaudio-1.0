@@ -27,9 +27,9 @@ void loop() {
 	if (Serial.available() > 0) {
 		char c = Serial.read();
 
-		if (c != last && c >= '0' && c <= '5')
+		if (c != last && c >= '1' && c <= '5')
 			lcd.clear();
-		if (c <= '0' || c >= '5') // repeat
+		if (c < '1' || c > '5') // repeat
 			c = last;
 		else
 			last = c;
