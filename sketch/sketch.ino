@@ -4,6 +4,8 @@
 hd44780_I2Cexp lcd; // auto-detects the I2C address
 LCD _lcd(&lcd);
 Face face(_lcd);
+char last = 0;
+
 
 void setup() {
   	lcd.begin(16, 2);
@@ -22,18 +24,26 @@ void setup() {
 }
 
 void loop() {
-	char last = 0;
 	if (Serial.available() > 0) {
 		char c = Serial.read();
+
 		if (c != last && c >= '0' && c <= '5')
 			lcd.clear();
+		if (c <= '0' || c >= '5') // repeat
+			c = last;
+		else
+			last = c;
+
 		if (c == '1') {
 			face.drawEyes();
 		} else if (c == '2') {
+			lcd.clear();
 			face.blink();
 			delay(300);
 			face.drawEyes();
+			delay(800);
 		} else if (c == '3') {
+			lcd.clear();
 			face.drawLeftSideEye();
 			delay(500);
 			lcd.clear();
@@ -42,6 +52,7 @@ void loop() {
 			lcd.clear();
 			face.defaultPos();
 			face.drawEyes();
+			delay(800);
 		} else if (c == '4') {
 			face.drawAngry();
 		} else if (c == '5') {
