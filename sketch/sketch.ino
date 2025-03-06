@@ -21,6 +21,7 @@ void setup() {
   	lcd.createChar(7, angryR);
 
 	Serial.begin(9600);
+	face.drawEyes();
 }
 
 void loop() {
