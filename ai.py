@@ -12,7 +12,7 @@ speech_config = speechsdk.SpeechConfig(
     subscription=os.getenv("SPEECH_KEY"), region=os.getenv("REGION"))
 
 speech_config.speech_recognition_language = "fr-FR"
-speech_config.speech_synthesis_voice_name = 'fr-FR-YvesNeural'
+speech_config.speech_synthesis_voice_name = 'fr-FR-RemyMultilingualNeural'
 
 # A filthy shortcut because i have incomprehensible bugs with my libs.
 # If your pc is normal unlike mine, consider replacing this argument with:
@@ -75,7 +75,7 @@ def ask_ai(prompt):
                 "schema": {
                     "type": "object",
                     "properties": {
-                        "res": {
+                        "content": {
                             "response": "the response to the message sent by the user",
                             "type": "string"
                         },
@@ -93,14 +93,29 @@ def ask_ai(prompt):
             }
         }
     )
+    print(response)
     data = json.loads(response.choices[0].message.content);
-    add_content("assistant", data["res"])
+    if (not "content" in data) or (not "emotion" in data) or (not "score" in data):
+        print("Error: AI failed to fill the corresponding fields.")
+        return
+
+    add_content("assistant", data["content"])
     send_emotion(data["emotion"])
-    say_out_loud(data["res"])
+    # say_out_loud(data["content"])
 
     print(data["emotion"])
     print(data["score"])
 
+i = 0
 while True:
-    ask_ai(listen_voice())
+    if i == 0:
+        ask_ai("Mais la terre, elle est ronde !")
+    elif i == 1:
+        ask_ai("Je suis pas d'accord du tout avec toi !")
+    elif i == 2:
+        ask_ai("Ok, tu as totalement raison, je suis completement d'accord avec toi.")
+    elif i == 3:
+        i = 0
+    # ask_ai(listen_voice())
+    i += 1
 
