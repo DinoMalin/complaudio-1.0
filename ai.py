@@ -12,15 +12,16 @@ speech_config = speechsdk.SpeechConfig(
     subscription=os.getenv("SPEECH_KEY"), region=os.getenv("REGION"))
 
 speech_config.speech_recognition_language = "fr-FR"
-audio_out = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+speech_config.speech_synthesis_voice_name = 'fr-FR-YvesNeural'
 
 # A filthy shortcut because i have incomprehensible bugs with my libs.
 # If your pc is normal unlike mine, consider replacing this argument with:
 # use_default_microphone=True
 audio_config = speechsdk.audio.AudioConfig(device_name="plughw:2,0") # fuck this man
+audio_out = speechsdk.audio.AudioOutputConfig(device_name="plughw:1,0") # aaah not again
+
 speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
-
-
+speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_out)
 
 _messages = [
         {
@@ -57,6 +58,10 @@ def listen_voice():
     print("Listening...")
     return speech_recognizer.recognize_once_async().get().text
 
+def say_out_loud(text):
+    print("ParanoIA-1.0:", text)
+    speech_synthesizer.speak_text_async(text).get().audio_data
+
 def ask_ai(prompt):
     print(prompt)
     add_content("user", prompt)
@@ -91,10 +96,11 @@ def ask_ai(prompt):
     data = json.loads(response.choices[0].message.content);
     add_content("assistant", data["res"])
     send_emotion(data["emotion"])
+    say_out_loud(data["res"])
 
-    print(data["res"])
     print(data["emotion"])
     print(data["score"])
 
 while True:
     ask_ai(listen_voice())
+
