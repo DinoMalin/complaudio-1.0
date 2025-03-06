@@ -93,7 +93,6 @@ def ask_ai(prompt):
             }
         }
     )
-    print(response)
     data = json.loads(response.choices[0].message.content);
     if (not "content" in data) or (not "emotion" in data) or (not "score" in data):
         print("Error: AI failed to fill the corresponding fields.")
@@ -101,21 +100,13 @@ def ask_ai(prompt):
 
     add_content("assistant", data["content"])
     send_emotion(data["emotion"])
-    # say_out_loud(data["content"])
+    say_out_loud(data["content"])
 
     print(data["emotion"])
     print(data["score"])
 
 i = 0
 while True:
-    if i == 0:
-        ask_ai("Mais la terre, elle est ronde !")
-    elif i == 1:
-        ask_ai("Je suis pas d'accord du tout avec toi !")
-    elif i == 2:
-        ask_ai("Ok, tu as totalement raison, je suis completement d'accord avec toi.")
-    elif i == 3:
-        i = 0
-    # ask_ai(listen_voice())
+    ask_ai(listen_voice())
     i += 1
 

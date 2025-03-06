@@ -1,7 +1,7 @@
 #include "Face.h"
 #include "characters.h"
 
-hd44780_I2Cexp lcd; // auto-detects the I2C address
+hd44780_I2Cexp lcd;
 LCD _lcd(&lcd);
 Face face(_lcd);
 char last = 0;
@@ -28,8 +28,10 @@ void loop() {
 	if (Serial.available() > 0) {
 		char c = Serial.read();
 
-		if (c != last && c >= '1' && c <= '5')
+		if (c != last && c >= '1' && c <= '5') {
+			Serial.println(c);
 			lcd.clear();
+		}
 		if (c < '1' || c > '5') // repeat
 			c = last;
 		else
