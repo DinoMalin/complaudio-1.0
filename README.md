@@ -1,4 +1,3 @@
-...
 # ParanoIA-1.0
 
 A cute complotist robot.
