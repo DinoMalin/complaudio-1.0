@@ -112,10 +112,12 @@ def ask_ai(prompt):
     print(data["emotion"])
     print(data["score"])
 
-i = 0
-while True:
-    ask_ai(listen_voice())
-    i += 1
+
+try:
+    while True:
+        ask_ai(listen_voice())
+except:
+    print("Program stopped.")
 
 # send_emotion("Complice")
 
