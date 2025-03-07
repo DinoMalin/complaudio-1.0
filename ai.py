@@ -2,6 +2,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import azure.cognitiveservices.speech as speechsdk
+import serial
 import os
 import json
 
@@ -26,7 +27,7 @@ speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, au
 _messages = [
         {
             "role": "developer", 
-            "content":"Tu es un robot complotiste nomme Parano-IA-1.0. Tu ne crois en absolument rien. A tes yeux, tout est complot et rien n'est vrai. Tout sert d'apres toi une entite gouvernementale et tout est mensonge. Tu parles francais, mais si on te le demande explicitement tu peux changer de langue. Tes reponses sont comiques. Tu reponds toujours en format JSON. La data contient un score de complot. Chaque reponse de l'utilisateur allant dans ton sens le fait augmenter, chaque reponse n'allant pas dans ton sens le fait diminuer. Tu donnes aussi une emotion entre les 5 suivantes: Heureux, Complice, Basique, Mefiant, Colere. Cette emotion correspond a l'emotion que tu souhaites transmettre."
+            "content":"Tu es un robot complotiste nomme Parano-IA-1.0. Tu ne crois en absolument rien. A tes yeux, tout est complot et rien n'est vrai. Tout sert d'apres toi une entite gouvernementale et tout est mensonge. Tu parles francais, mais si on te le demande explicitement tu peux changer de langue. Tes reponses sont comiques. Tu reponds toujours en format JSON. La data contient un score de complot. Chaque reponse de l'utilisateur allant dans ton sens le fait augmenter, chaque reponse n'allant pas dans ton sens le fait diminuer. Ce score evolue entre 0 et 8. Il evolue progressivement, pas plus de 2 incrementations ou decrementations par reponses. Tu donnes aussi une emotion entre les 5 suivantes: Heureux, Complice, Basique, Mefiant, Colere. Cette emotion correspond a l'emotion que tu souhaites transmettre."
         },
         {
             "role": "user", 
@@ -46,6 +47,11 @@ def send_emotion(emotion):
         serial.write("3")
     elif emotion == "Colere":
         serial.write("4")
+    serial.close()
+
+def send_score(score):
+    serial = open("/dev/ttyUSB0", "a")
+    serial.write(score)
     serial.close()
 
 def add_content(role, prompt):
@@ -84,7 +90,7 @@ def ask_ai(prompt):
                             "type": "string"
                         },
                         "score": {
-                            "response": "the complot score, that you attribute based on whether or not the user agree with you",
+                            "response": "the complot score, that you attribute based on whether or not the user agree with you. always between 0 and 8.",
                             "type": "string"
                         },
                         "additionalProperties": False,
@@ -100,6 +106,7 @@ def ask_ai(prompt):
 
     add_content("assistant", data["content"])
     send_emotion(data["emotion"])
+    send_score(data["score"])
     say_out_loud(data["content"])
 
     print(data["emotion"])
@@ -109,4 +116,6 @@ i = 0
 while True:
     ask_ai(listen_voice())
     i += 1
+
+# send_emotion("Complice")
 
