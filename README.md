@@ -1,4 +1,4 @@
-
+...
 # ParanoIA-1.0
 
 A cute complotist robot.
@@ -33,7 +33,7 @@ You can enter a screen session to modify the emotions of the robot: ```screen /d
 You can do the same to modify the gauge: ```screen /dev/ttyACM0 9600```. The gauge has 9 levels: between 0 and 8.
 
 ### Talking to the Robot
-To talk to the robot, use make env to create and enter a virtual environment (```source env/bin/activate``` if already created).\
+To talk to the robot, use ```make env``` to create and enter a virtual environment (```source env/bin/activate``` if already created).\
 Create a .env filled with your api keys.\
 Launch ```python ai.py``` to talk to the robot. Don't forget to turn on your speaker !
 ## The complot skate
