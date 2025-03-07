@@ -13,7 +13,7 @@ speech_config = speechsdk.SpeechConfig(
     subscription=os.getenv("SPEECH_KEY"), region=os.getenv("REGION"))
 
 speech_config.speech_recognition_language = "fr-FR"
-speech_config.speech_synthesis_voice_name = 'fr-FR-RemyMultilingualNeural'
+speech_config.speech_synthesis_voice_name = 'fr-FR-CoralieNeural'
 
 # A filthy shortcut because i have incomprehensible bugs with my libs.
 # If your pc is normal unlike mine, consider replacing this argument with:
